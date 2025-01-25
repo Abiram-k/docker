@@ -1,14 +1,6 @@
 {
-  "name": "my-node-app",
-  "version": "1.0.0",
-  "description": "A simple Node.js application with Express that serves an HTML page.",
-  "main": "src/app.js",
-  "scripts": {
-    "start": "node src/app.js"
-  },
+  "type": "module",
   "dependencies": {
-    "express": "^4.17.1"
-  },
-  "author": "",
-  "license": "ISC"
+    "express": "^4.21.2"
+  }
 }

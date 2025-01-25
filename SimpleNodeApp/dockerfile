@@ -1,0 +1,24 @@
+# Docker find this image without locally, pulling node image
+FROM node  
+
+# Specifying the docker to execute all the commands in /app
+WORKDIR /app
+
+
+# Copy package.json and package-lock.json first (to leverage caching)
+COPY package.json /app
+
+# Only if you have this file
+COPY package-lock.json /app 
+
+# To install all the dependecies
+RUN npm install
+
+# All the files and folders are copied into the app, that is './' (relative path) or just '/app' (absolute path)
+COPY  . /app
+
+# Expose the port
+EXPOSE 3000
+
+# To run the commad, the reason we are not using RUN is , the image is not going to run basically we running the container, so CMD command will run along with the container 
+CMD ["node","./src/app.js"]

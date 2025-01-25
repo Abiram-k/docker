@@ -1,18 +1,35 @@
-export default function setupRoutes(app) {
-    app.get('/', (req, res) => {
-        res.send(`
-            <!DOCTYPE html>
-            <html lang="en">
+
+
+import { Router } from 'express';
+
+const router = Router();
+let message = "No messages Yet! 😐"
+router.get('/', (req, res) => {
+    res.send(`
+        <html>
             <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <link rel="stylesheet" href="/style.css">
-                <title>Docker Example</title>
+                <link rel="stylesheet" type="text/css" href="/style.css">
             </head>
             <body>
-                <h1>Docker Example!</h1>
+                <h1>Message Form</h1>
+                <p>${message}</p>
+                <form action="/submit" method="POST">
+                    <label for="message">Message:</label>
+                    <input type="text" id="message" name="message">
+                    <button type="submit">Submit</button>
+                </form>
             </body>
-            </html>
-        `);
-    });
-}
+        </html>
+    `);
+});
+
+router.post('/submit', (req, res) => {
+     message = req.body.message + " 😃";
+    res.redirect("/");
+});
+
+export default (app) => {
+    app.use('/', router);
+};
+
+

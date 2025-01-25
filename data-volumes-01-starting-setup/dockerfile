@@ -1,0 +1,15 @@
+FROM node
+
+WORKDIR /volumeApp
+
+COPY  /package.json /volumeApp/
+
+RUN npm install
+
+COPY  . /volumeApp/
+
+ENV PORT=80
+
+EXPOSE $PORT
+
+CMD [ "npm","start" ]

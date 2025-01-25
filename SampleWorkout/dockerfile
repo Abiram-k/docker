@@ -1,0 +1,7 @@
+FROM node
+
+WORKDIR /sample
+
+COPY  . .
+
+CMD [ "node","sample.js" ]

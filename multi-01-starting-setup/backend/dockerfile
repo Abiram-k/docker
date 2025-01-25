@@ -1,0 +1,17 @@
+FROM node
+
+WORKDIR /app
+
+COPY package.json .
+
+RUN npm install
+
+COPY . .
+
+EXPOSE 80
+
+ENV MONGO_USER=abiram
+
+ENV MONGO_PASSWORD=0107
+
+CMD [ "npm", "start" ]

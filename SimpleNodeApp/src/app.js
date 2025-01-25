@@ -1,12 +1,13 @@
 import express from 'express';
 import path from 'path';
-import { setupRoutes } from './routes/index.js';
+import setupRoutes from './routes/index.js';
+import bodyParser from 'body-parser';
 
 const app = express();
 const PORT = 3000;
 
-// Middleware to serve static files
 app.use(express.static(path.join(process.cwd(), 'public')));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Setup routes
 setupRoutes(app);
