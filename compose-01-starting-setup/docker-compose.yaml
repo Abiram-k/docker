@@ -1,0 +1,43 @@
+#version: "3.8"
+services:
+  mongodb:
+    image: "mongo"
+    volumes:
+      - data:/data/db
+    # container_name: mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: abiram
+      MONGO_INITDB_ROOT_PASSWORD: 0107
+      #- MONGO_INITDB_ROOT_USERNAME=abiram // also need - infront , becuase it storing sigle value, in down they are object
+
+  backend:
+    build: ./backend
+    # build:
+      # context: ./backend
+      # dockerfile: Dockerfile
+    ports:
+      - '80:80'
+    volumes:
+      - logs:/app/logs
+      - ./backend:/app # we can use relative path rather than absolute path
+      - /app/node_modules
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME= abiram
+      - MONGO_INITDB_ROOT_PASSWORD= 0107
+    depends_on:
+      - mongodb # because we sending req to mongodb
+  frontend:
+    build: ./frontend # it will find docker file in that path
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./frontend/src:/app/src
+    stdin_open: true # this two commands is for to enable -it
+    tty: true
+    depends_on:
+      - backend # to let know the frontend only run after backend run
+      
+volumes:
+  data:
+  logs:
+  #named volumes need to specify here
